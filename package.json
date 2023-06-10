@@ -1,0 +1,35 @@
+{
+    "name": "shapez-mods",
+    "version": "0.0.0",
+    "description": "Personalized mod development tools for shapez",
+    "type": "module",
+    "author": "dengr1065",
+    "license": "GPL-3.0-or-later",
+    "private": true,
+    "scripts": {
+        "build": "rollup --config tools/rollup.config.js",
+        "watch": "rollup --config tools/rollup.config.js --watch",
+        "clean": "rm -rf build/",
+        "tsCheck": "tsc --noEmit",
+        "prettier": "prettier --check '**/*.js'"
+    },
+    "devDependencies": {
+        "@rollup/plugin-commonjs": "^25.0.0",
+        "@rollup/plugin-json": "^6.0.0",
+        "@rollup/plugin-node-resolve": "^15.1.0",
+        "@rollup/plugin-terser": "^0.4.1",
+        "@rollup/plugin-typescript": "^11.1.0",
+        "@rollup/plugin-url": "^8.0.1",
+        "@tsconfig/esm": "^1.0.2",
+        "@tsconfig/node18": "^1.0.1",
+        "@tsconfig/recommended": "^1.0.2",
+        "@tsconfig/strictest": "^2.0.0",
+        "@types/semver": "^7.5.0",
+        "marked": "^5.0.4",
+        "prettier": "^2.8.8",
+        "rollup": "^3.20.3",
+        "rollup-plugin-sass": "^1.12.19",
+        "tslib": "^2.5.0",
+        "typescript": "^5.0.4"
+    }
+}

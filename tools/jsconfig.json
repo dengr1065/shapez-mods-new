@@ -1,0 +1,10 @@
+{
+    "include": ["./**/*.js"],
+    "extends": ["@tsconfig/recommended/tsconfig.json", "@tsconfig/node18/tsconfig.json"],
+    "compilerOptions": {
+        "checkJs": true,
+        "module": "NodeNext",
+        "moduleResolution": "nodenext",
+        "strict": true
+    }
+}
