@@ -7,17 +7,9 @@ export const projectDir = path.join(path.dirname(thisFilePath), "..");
 
 // Collect all virtual modules
 const typings = await readFile("./types.d.ts", "utf-8");
-export const shapezExternal = typings
+export const shapezModules = typings
     .split(/declare\smodule\s"/gm)
     .map((m) => m.slice(0, m.indexOf('"')));
-
-/**
- * Points all virtual shapez modules to the "shapez" global.
- * @param {string} id
- */
-export function resolveShapezModule(id) {
-    return shapezExternal.includes(id) ? "shapez" : "UNKNOWN";
-}
 
 /**
  * Transforms a file path into a mod ID.

@@ -8,8 +8,9 @@ const loaderPrefix = "\0shapez-loader\0";
  * @param {string} metadataPath
  */
 function generateLoaderCode(modPath, metadataPath) {
-    return `export { default as Mod } from ${JSON.stringify(modPath)};
-            export { default as METADATA } from ${JSON.stringify(metadataPath)};`;
+    return `import { default as Mod } from ${JSON.stringify(modPath)};
+            import { default as METADATA } from ${JSON.stringify(metadataPath)};
+            $shapez_registerMod(Mod, METADATA);`;
 }
 
 /**

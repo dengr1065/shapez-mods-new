@@ -10,13 +10,13 @@ import { shapezDevWrapper } from "./plugins/dev_wrapper.js";
 import { shapezLoader } from "./plugins/loader.js";
 import { marked } from "./plugins/marked.js";
 import { shapezMetadata } from "./plugins/metadata.js";
-import { shapezEnv } from "./plugins/shapez_env.js";
-import { resolveShapezModule, shapezExternal } from "./util.js";
+import { shapezEnv, shapezGlobal } from "./plugins/shapez_env.js";
+import { modFilePathToId } from "./util.js";
 
 const isDev = !!process.env.ROLLUP_WATCH;
 const plugins = [
     // @ts-ignore invalid typings
-    url({ limit: 0 }),
+    url({ limit: Infinity }),
     // @ts-ignore invalid typings
     json({ exclude: "**/mod.json" }),
     sass(),
@@ -29,8 +29,6 @@ const plugins = [
     // @ts-ignore invalid typings
     commonJS(),
     // @ts-ignore invalid typings
-    typescript(),
-    // @ts-ignore invalid typings
     isDev ? shapezDevWrapper() : terser(),
 ];
 
@@ -38,26 +36,38 @@ const plugins = [
 const base = {
     output: {
         format: "iife",
-        name: "self",
-        extend: true,
-        exports: "named",
+        exports: "none",
         esModule: false,
-        globals: resolveShapezModule,
+        globals: {
+            [shapezGlobal]: "shapez",
+        },
         sourcemap: isDev ? "inline" : false,
         generatedCode: {
             preset: "es2015",
             symbols: false,
         },
     },
-    external: shapezExternal,
-    plugins,
+    external: [shapezGlobal],
 };
 
+/** @type {import("rollup").RollupOptions[]} */
 const configs = [];
 
 for (const mod of modSources) {
     configs.push({
         ...base,
+        // A unique instance of TypeScript is needed for correct warning reports
+        // @ts-ignore invalid typings
+        plugins: [typescript(), ...plugins],
+        onwarn(warning, defaultHandler) {
+            const file = warning.loc?.file;
+            if (file && modFilePathToId(file) !== mod) {
+                // The warning is unrelated to this mod
+                return;
+            }
+
+            defaultHandler(warning);
+        },
         input: resolveModEntry(mod),
         output: {
             ...base.output,
