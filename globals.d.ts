@@ -2,9 +2,15 @@ declare module "shapez-env" {
     import type { Mod } from "mods/mod";
 
     export function getMod<T extends Mod>(): T;
+    export function registerModSprites(mod: Mod, prefix?: string | boolean);
 }
 
 declare module "*.scss" {
+    const content: string;
+    export default content;
+}
+
+declare module "*.png" {
     const content: string;
     export default content;
 }
