@@ -1,0 +1,6 @@
+{
+    "name": "Key Insight",
+    "description": "Shows a simple overlay with pressed modifier keys.",
+    "version": "1.0.0",
+    "affectsSavegame": false
+}

@@ -1,0 +1,42 @@
+#HUD_KeyInsight {
+    position: absolute;
+    left: 1em;
+    bottom: 1em;
+    z-index: 350;
+
+    gap: 0.4em;
+    opacity: 0;
+    transition: 0.2s opacity ease-in-out;
+
+    &.visible {
+        opacity: 1;
+    }
+
+    .key {
+        padding-top: 0.2em;
+        padding-left: 0.3em;
+        padding-right: 0.8em;
+        padding-bottom: 0.5em;
+
+        border-width: 0.2em;
+        border-bottom-width: 0.3em;
+        border-style: solid;
+        border-top-color: rgba(255 255 255 / 0.1);
+        border-left-color: rgba(0 0 0 / 0.05);
+        border-right-color: rgba(0 0 0 / 0.05);
+        border-bottom-color: rgba(0 0 0 / 0.2);
+
+        font-size: 90%;
+        border-radius: 0.2em;
+        background: #222222;
+        color: white;
+        transition: 0.1s background-color ease-in-out,
+            0.08s border-bottom-width ease-in-out, 0.08s margin-top ease-in-out;
+
+        &.pressed {
+            background-color: #1d47a0;
+            border-bottom-width: 0.2em;
+            margin-top: 0.1em;
+        }
+    }
+}
