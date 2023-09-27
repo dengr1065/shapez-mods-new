@@ -10,3 +10,8 @@ TypeScript and Sass. Work in progress!
 
 -   Still no texture packing
 -   Adding new mods requires a full restart
+
+## Licensing
+
+Just like the game itself, this project is licensed under the terms of GNU General Purpose
+License version 3 (or later). The license text can be found in the LICENSE file.
