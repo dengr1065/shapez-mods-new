@@ -3,6 +3,9 @@ import { readFile } from "fs/promises";
 import * as path from "path";
 import { formatAsBanner, modFilePathToId, modFileToMetadataPath } from "../util.js";
 
+/** @type {{ website?: string, source?: string, update?: string }} */
+const globalMetadata = JSON.parse(await readFile("./global_metadata.json", "utf-8"));
+
 /** @type {{ [k: string]: { name: string, email?: string, icon?: string } }} */
 const authors = JSON.parse(await readFile("./authors.json", "utf-8"));
 
@@ -11,6 +14,18 @@ const authors = JSON.parse(await readFile("./authors.json", "utf-8"));
  */
 function resolveAuthor(id) {
     return id ? authors[id] ?? id : authors[Object.keys(authors)[0]];
+}
+
+/**
+ * @param {string | undefined} source
+ * @param {string} id
+ */
+function replaceModId(source, id) {
+    if (source == undefined) {
+        return source;
+    }
+
+    return source.replaceAll("{MOD_ID}", id);
 }
 
 /**
@@ -23,7 +38,12 @@ function resolveAuthor(id) {
  *     version: string,
  *     authors?: string[],
  *     affectsSavegame?: boolean,
- *     extra: { authors?: { name: string, email?: string, icon?: string }[] }
+ *     website?: string,
+ *     extra: {
+ *         authors?: { name: string, email?: string, icon?: string }[],
+ *         source?: string,
+ *         updateURL?: string
+ *     },
  *     [k: string]: any
  * }} metadata
  */
@@ -39,6 +59,10 @@ function expandBasicMetadata(id, metadata) {
     const affectsSavegame = metadata.affectsSavegame ?? true;
     metadata.doesNotAffectSavegame = !affectsSavegame;
     delete metadata.affectsSavegame;
+
+    metadata.website ??= replaceModId(globalMetadata.website, id);
+    metadata.extra.source = replaceModId(globalMetadata.source, id);
+    metadata.extra.updateURL = replaceModId(globalMetadata.update, id);
 
     return metadata;
 }

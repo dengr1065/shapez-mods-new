@@ -1,0 +1,5 @@
+{
+    "website": "https://skimnerphi.net/mods/{MOD_ID}",
+    "source": "https://github.com/dengr1065/shapez-mods-new/tree/master/{MOD_ID}",
+    "update": "https://skimnerphi.net/api/v1/manifest/{MOD_ID}"
+}
