@@ -83,10 +83,44 @@ declare module "mods/mod" {
 }
 
 declare module "game/map_chunk" {
+    import type { Entity } from "game/entity";
+
     interface MapChunk {
         containedEntitiesByLayer: {
             regular: Entity[];
             wires: Entity[];
         };
+    }
+}
+
+type SubShapeShortCode = "R" | "C" | "S" | "W";
+type SubShapeName = "rect" | "circle" | "star" | "windmill";
+
+declare module "game/shape_definition" {
+    export const enumSubShapeToShortcode: Record<SubShapeName, SubShapeShortCode> = {};
+}
+
+type ColorShortCode = "r" | "g" | "b" | "c" | "p" | "y" | "w" | "u";
+type ColorName =
+    | "red"
+    | "green"
+    | "blue"
+    | "cyan"
+    | "purple"
+    | "yellow"
+    | "white"
+    | "uncolored";
+
+declare module "game/colors" {
+    export const enumShortcodeToColor: Record<ColorShortCode, ColorName> = {};
+    export const enumColorToShortcode: Record<ColorName, ColorShortCode> = {};
+    export const enumColorsToHexCode: Record<ColorName, string> = {};
+}
+
+declare module "game/items/color_item" {
+    export const COLOR_ITEM_SINGLETONS: Record<ColorName, ColorItem> = {};
+
+    export interface ColorItem {
+        color: ColorName;
     }
 }
