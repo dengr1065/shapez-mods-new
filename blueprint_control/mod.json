@@ -1,0 +1,9 @@
+{
+    "name": "Blueprint Control",
+    "description": "A library that lets mods modify blueprints before placement.",
+    "version": "1.0.0",
+    "affectsSavegame": false,
+    "extra": {
+        "library": true
+    }
+}
