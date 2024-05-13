@@ -6,6 +6,7 @@ import typescript from "@rollup/plugin-typescript";
 import url from "@rollup/plugin-url";
 import sass from "rollup-plugin-sass";
 import { modSources, resolveModEntry } from "./mod_resolver.js";
+import { shapezAtlasLoader } from "./plugins/atlas_loader.js";
 import { shapezDevWrapper } from "./plugins/dev_wrapper.js";
 import { shapezLoader } from "./plugins/loader.js";
 import { marked } from "./plugins/marked.js";
@@ -22,6 +23,7 @@ const plugins = [
     sass(),
     marked(),
     shapezEnv(),
+    shapezAtlasLoader(),
     shapezMetadata({ isDev }),
     shapezLoader(),
     // @ts-ignore invalid typings

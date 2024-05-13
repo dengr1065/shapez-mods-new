@@ -1,4 +1,5 @@
 node_modules/
 build/
+*/sprites/index.d.ts
 .vscode/
 *.log

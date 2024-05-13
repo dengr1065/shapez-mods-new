@@ -1,1 +1,3 @@
 build/*.mod.js
+*/sprites/index.d.ts
+types.d.ts
