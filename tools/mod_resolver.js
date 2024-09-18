@@ -4,7 +4,13 @@ import * as path from "path";
 import { modFileToMetadataPath, projectDir } from "./util.js";
 
 const ignoredDirs = ["tools", "node_modules", ".vscode", ".git"];
-const possibleEntryPoints = ["./index.ts", "./mod.ts", "./ts/index.ts", "./ts/mod.ts"];
+const possibleEntryPoints = [
+    "./mod.loader.ts",
+    "./index.ts",
+    "./mod.ts",
+    "./ts/index.ts",
+    "./ts/mod.ts",
+];
 export const modSources = await enumerateMods();
 
 async function enumerateMods() {

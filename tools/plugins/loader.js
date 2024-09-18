@@ -22,7 +22,7 @@ export function shapezLoader() {
     return {
         name: "shapez-loader",
         resolveId(id, _source, { isEntry }) {
-            if (!isEntry) {
+            if (!isEntry || id.includes(".loader.")) {
                 // We're only proxying the entry
                 return null;
             }
