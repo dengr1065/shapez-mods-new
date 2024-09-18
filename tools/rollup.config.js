@@ -4,6 +4,8 @@ import nodeResolve from "@rollup/plugin-node-resolve";
 import terser from "@rollup/plugin-terser";
 import typescript from "@rollup/plugin-typescript";
 import url from "@rollup/plugin-url";
+import postcss from "postcss";
+import postcssUrl from "postcss-url";
 import sass from "rollup-plugin-sass";
 import { modSources, resolveModEntry } from "./mod_resolver.js";
 import { shapezAtlasLoader } from "./plugins/atlas_loader.js";
@@ -15,12 +17,18 @@ import { shapezEnv, shapezGlobal } from "./plugins/shapez_env.js";
 import { modFilePathToId } from "./util.js";
 
 const isDev = !!process.env.ROLLUP_WATCH;
+
+const cssProcessor = postcss([postcssUrl({ url: "inline" })]);
 const plugins = [
     // @ts-ignore invalid typings
     url({ limit: Infinity }),
     // @ts-ignore invalid typings
     json({ exclude: "**/mod.json" }),
-    sass(),
+    // @ts-ignore invalid typings
+    sass({
+        processor: (css, id) =>
+            cssProcessor.process(css, { from: id }).then((r) => r.css),
+    }),
     marked(),
     shapezEnv(),
     shapezAtlasLoader(),
