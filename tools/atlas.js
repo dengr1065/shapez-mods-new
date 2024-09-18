@@ -11,6 +11,10 @@ export const atlasSpriteDef = {
     y: 0,
     w: 0,
     h: 0,
+    linkX: 0,
+    linkY: 0,
+    linkW: 0,
+    linkH: 0,
     blueprint: false,
 };
 
@@ -165,15 +169,39 @@ export class AtlasStitcher {
 
     /**
      * Returns scaled dimensions of the sprite.
-     * @param {{ x: number, y: number, w: number, h: number }} src
+     * @param {typeof atlasSpriteDef} src
      * @param {number} scale
      */
     static scaleDimensions(src, scale) {
-        return {
+        /** @type {Record<string, number>} */
+        const result = {
             x: Math.ceil(src.x * scale),
             y: Math.ceil(src.y * scale),
             w: Math.floor(src.w * scale),
             h: Math.floor(src.h * scale),
+            n: Math.ceil((src.linkX ?? 0) * scale),
+            m: Math.ceil((src.linkY ?? 0) * scale),
+            p: Math.floor((src.linkW ?? src.w) * scale),
+            q: Math.floor((src.linkH ?? src.h) * scale),
         };
+
+        // Strip useless properties
+        if (result.linkX === 0) {
+            delete result.linkX;
+        }
+
+        if (result.linkY === 0) {
+            delete result.linkY;
+        }
+
+        if (result.linkW === result.w) {
+            delete result.linkW;
+        }
+
+        if (result.linkH === result.h) {
+            delete result.linkH;
+        }
+
+        return result;
     }
 }

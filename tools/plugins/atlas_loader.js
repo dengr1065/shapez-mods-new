@@ -62,7 +62,7 @@ function generateCode(modId, atlases, sprites) {
         atlasUrls.push(url);
     }
 
-    /** @type {{ x: number, y: number, w: number, h: number }[][]} */
+    /** @type {unknown[][]} */
     const spriteLinks = [];
     /** @type {Record<string, string>} */
     const idMapping = {};
@@ -101,14 +101,14 @@ function generateCode(modId, atlases, sprites) {
                 const link = links[i][j];
                 sprite.linksByResolution[scale] = new shapez.SpriteAtlasLink({
                     atlas: images[j],
-                    packOffsetX: 0,
-                    packOffsetY: 0,
+                    packOffsetX: link.n ?? 0,
+                    packOffsetY: link.m ?? 0,
                     packedX: link.x,
                     packedY: link.y,
                     packedW: link.w,
                     packedH: link.h,
-                    w: link.w,
-                    h: link.h
+                    w: link.p ?? link.w,
+                    h: link.q ?? link.h
                 });
             }
 
