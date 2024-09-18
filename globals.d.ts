@@ -1,25 +1,3 @@
-declare module "shapez-env" {
-    import type { Mod } from "mods/mod";
-
-    export const MOD_ID: string;
-    export function getMod<T extends Mod>(): T;
-}
-
-declare module "*.scss" {
-    const content: string;
-    export default content;
-}
-
-declare module "*.png" {
-    const content: string;
-    export default content;
-}
-
-declare module "*.svg" {
-    const content: string;
-    export default content;
-}
-
 type STOP_PROPAGATION = "stop_propagation";
 type SignalReceiver<T, S> = (this: S, ...arguments: T) => void | STOP_PROPAGATION;
 
@@ -128,4 +106,16 @@ declare module "game/items/color_item" {
     export interface ColorItem {
         color: ColorName;
     }
+}
+
+declare module "core/config" {
+    export namespace globalConfig {
+        export const analyticsSliceDurationSeconds: number;
+        export const tileSize: number;
+        export const halfTileSize: number;
+    }
+}
+
+interface CanvasRenderingContext2D {
+    beginRoundedRect(x: number, y: number, w: number, h: number, radius: number);
 }

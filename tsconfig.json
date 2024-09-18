@@ -4,8 +4,9 @@
         "@tsconfig/esm/tsconfig.json",
         "@tsconfig/strictest/tsconfig.json"
     ],
-    "include": ["./globals.d.ts", "./types.d.ts", "./**/*.ts"],
+    "include": ["./env.d.ts", "./globals.d.ts", "./types.d.ts", "./**/*.ts"],
     "compilerOptions": {
+        "allowArbitraryExtensions": true,
         "target": "ES2021",
         "moduleResolution": "bundler",
         "resolveJsonModule": true
