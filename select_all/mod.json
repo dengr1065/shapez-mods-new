@@ -1,0 +1,6 @@
+{
+    "name": "Select All",
+    "description": "Provides a hotkey to select all buildings (Ctrl+A).",
+    "version": "1.0.0",
+    "affectsSavegame": false
+}
