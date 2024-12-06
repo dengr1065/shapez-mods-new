@@ -1,0 +1,5 @@
+{
+    "1.1.1": ["Fixed mod settings handling."],
+    "1.1.0": ["Asynchronous mod initialization support."],
+    "1.0.0": ["Initial release."]
+}

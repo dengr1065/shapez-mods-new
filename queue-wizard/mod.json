@@ -1,0 +1,11 @@
+{
+    "name": "Queue Wizard",
+    "description": "Allows mods to specify loading order.",
+    "version": "1.1.1",
+    "authors": ["SkimnerPhi", "dengr1065"],
+    "settings": {},
+    "affectsSavegame": false,
+    "extra": {
+        "library": true
+    }
+}
