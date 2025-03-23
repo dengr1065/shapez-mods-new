@@ -9,13 +9,14 @@ import { parseStructuralCode } from "./parser";
 
 interface ModSettings {
     subshape: string;
+    layerColors: ColorName[];
     useIndexedColors: boolean;
     indexedColorMapping: ColorName[][];
 }
 
 function parserHook(
     source: (entity: Entity, code: string) => BaseItem | null,
-    [entity, code]: [Entity, string]
+    [entity, code]: [Entity, string],
 ): BaseItem | null {
     if (code.trim() === "") {
         return null;
@@ -42,12 +43,7 @@ class Structural extends Mod {
 
     override init() {
         const settings = this.settings as ModSettings;
-        const colorMapping = settings.indexedColorMapping;
-        if (colorMapping.length === 0 || colorMapping.some((l) => l.length === 0)) {
-            // Idiot-proofing
-            settings.indexedColorMapping = [["uncolored"]];
-            this.saveSettings;
-        }
+        this.checkSettings(settings);
 
         this.subshape =
             enumSubShapeToShortcode[settings.subshape as SubShapeName] ??
@@ -57,8 +53,29 @@ class Structural extends Mod {
             HUDConstantSignalEdit,
             "parseSignalCode",
             // @ts-expect-error bad typings
-            parserHook
+            parserHook,
         );
+    }
+
+    private checkSettings(settings: ModSettings) {
+        let pendingSave = false;
+
+        const colorMapping = settings.indexedColorMapping;
+        if (colorMapping.length === 0 || colorMapping.some((l) => l.length === 0)) {
+            settings.indexedColorMapping = [["red"], ["green"], ["blue"], ["white"]];
+            pendingSave = true;
+        }
+
+        const layerColors = settings.layerColors;
+        if (!Array.isArray(layerColors) || layerColors.length === 0) {
+            settings.layerColors = ["red", "green", "blue", "white"];
+            pendingSave = true;
+        }
+
+        if (pendingSave) {
+            this.logger.warn("Incorrect settings detected, restoring defaults");
+            this.saveSettings();
+        }
     }
 
     resolveIndexedColor(index: string, layer: number): ColorShortCode {
@@ -68,8 +85,11 @@ class Structural extends Mod {
 
         const settings = this.settings as ModSettings;
         if (!settings.useIndexedColors) {
+            const layerColors = settings.layerColors;
+
             if (index === "1") {
-                return enumColorToShortcode.uncolored;
+                const color = layerColors[layer % layerColors.length]!;
+                return enumColorToShortcode[color];
             } else {
                 throw new Error(`Invalid color index: ${index}`);
             }

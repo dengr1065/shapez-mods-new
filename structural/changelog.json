@@ -1,3 +1,8 @@
 {
+    "1.1.0": [
+        "Added support for hexadecimal shape codes.",
+        "Changed default configuration to use different colors per layer.",
+        "Fixed a bug related to configuration saving."
+    ],
     "1.0.0": ["Initial release."]
 }

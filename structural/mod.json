@@ -1,11 +1,12 @@
 {
     "name": "Structural",
     "description": "Adds support for structural shape codes for constant signal input field.",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "affectsSavegame": false,
     "settings": {
         "subshape": "circle",
+        "layerColors": ["red", "green", "blue", "white"],
         "useIndexedColors": false,
-        "indexedColorMapping": [["uncolored"]]
+        "indexedColorMapping": [["red"], ["green"], ["blue"], ["white"]]
     }
 }
