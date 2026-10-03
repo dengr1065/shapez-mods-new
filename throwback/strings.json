@@ -1,0 +1,10 @@
+{
+    "throwback": {
+        "missing": "Couldn't find where to return!"
+    },
+    "keybindings": {
+        "mappings": {
+            "throwback:return": "Return to previous location"
+        }
+    }
+}
